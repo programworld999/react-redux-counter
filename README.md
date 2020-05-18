@@ -1,4 +1,4 @@
-# react-redux-counter
+# React-Redux-Counter
 
 ### learning React Redux Repo
 

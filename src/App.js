@@ -13,8 +13,8 @@ export class App extends Component {
   render() {
     return (
       <div className="App container">
-        <div className="container mt-4">
-          <div className="card text-center">
+        <div className="container mt-5">
+          <div className="card text-center shadow-lg rounded">
             <div className="card-header">Counter Card</div>
             <div className="card-body">
               <h1 className="card-title text-bold">{this.props.count}</h1>
@@ -33,7 +33,22 @@ export class App extends Component {
                 Dicrease
               </button>
             </div>
-            <div className="card-footer text-muted">React Redux</div>
+            <div className="container col-6 p-4">
+              {this.props.history.map((el) => (
+                <div className="card shadow" key={el.id}>
+                  <div className="card-body">
+                    <span className="float-left">{el.count}</span>
+                    <button
+                      className="btn btn-outline-warning float-right"
+                      onClick={() => this.props.deltItem(el.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="card-footer text-muted bg-dark">React Redux</div>
           </div>
         </div>
       </div>
@@ -44,13 +59,15 @@ export class App extends Component {
 let mapStateToProps = (state) => {
   return {
     count: state.count,
+    history: state.history,
   };
 };
 
 let mapDispachToProps = (dispach) => {
   return {
-    handleIncrease: () => dispach({ type: "countUp" }),
-    handleDecrease: () => dispach({ type: "countDown" }),
+    handleIncrease: () => dispach({ type: "countUp", value: 10 }),
+    handleDecrease: () => dispach({ type: "countDown", value: 5 }),
+    deltItem: (id) => dispach({ type: "dltItem", id: id }),
   };
 };
 
