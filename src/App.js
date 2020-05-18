@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from "react";
+import { connect } from "react-redux";
+export class App extends Component {
+  // state = {
+  //   count: 0,
+  // };
+  // handleIncrease = () => {
+  //   this.setState({ count: ++this.state.count });
+  // };
+  // handleDecrease = () => {
+  //   this.setState({ count: --this.state.count });
+  // };
+  render() {
+    return (
+      <div className="App container">
+        <div className="container mt-4">
+          <div className="card text-center">
+            <div className="card-header">Counter Card</div>
+            <div className="card-body">
+              <h1 className="card-title text-bold">{this.props.count}</h1>
+              <button
+                href="#"
+                className="btn btn-success m-1"
+                onClick={this.props.handleIncrease}
+              >
+                Increase
+              </button>
+              <button
+                href="#"
+                className="btn btn-danger m-1"
+                onClick={this.props.handleDecrease}
+              >
+                Dicrease
+              </button>
+            </div>
+            <div className="card-footer text-muted">React Redux</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default App;
+let mapStateToProps = (state) => {
+  return {
+    count: state.count,
+  };
+};
+
+let mapDispachToProps = (dispach) => {
+  return {
+    handleIncrease: () => dispach({ type: "countUp" }),
+    handleDecrease: () => dispach({ type: "countDown" }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispachToProps)(App);
